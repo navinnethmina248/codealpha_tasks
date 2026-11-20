@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}ShopEase - Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>Shopping made easy</h1>
+  <p>Browse our catalogue, add items to your cart and check out in seconds.</p>
+</section>
+
+<div class="filters">
+  <a class="chip {% if not selected_category %}active{% endif %}" href="{% url 'home' %}">All</a>
+  {% for c in categories %}
+    <a class="chip {% if selected_category == c.id %}active{% endif %}" href="?category={{ c.id }}{% if query %}&q={{ query }}{% endif %}">{{ c.name }}</a>
+  {% endfor %}
+</div>
+
+{% if query %}<p class="muted">Results for "<strong>{{ query }}</strong>"</p>{% endif %}
+
+{% if products %}
+<div class="grid">
+  {% for p in products %}
+  <article class="card">
+    <a href="{{ p.get_absolute_url }}" class="card-img">
+      {% if p.image_url %}<img src="{{ p.image_url }}" alt="{{ p.name }}">{% else %}<span class="placeholder">{{ p.name|slice:":1" }}</span>{% endif %}
+    </a>
+    <div class="card-body">
+      <h3><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></h3>
+      {% if p.category %}<p class="muted small">{{ p.category.name }}</p>{% endif %}
+      <p class="price">${{ p.price }}</p>
+      {% if p.in_stock %}
+        <form action="{% url 'add_to_cart' p.pk %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="quantity" value="1">
+          <button class="btn" type="submit">Add to cart</button>
+        </form>
+      {% else %}
+        <p class="out">Out of stock</p>
+      {% endif %}
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% else %}
+  <p class="empty">No products found. {% if not query %}Run <code>python manage.py seed</code> or add some in the admin.{% endif %}</p>
+{% endif %}
+{% endblock %}

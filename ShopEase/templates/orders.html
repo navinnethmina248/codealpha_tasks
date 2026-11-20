@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}My Orders - ShopEase{% endblock %}
+
+{% block content %}
+<h1>My Orders</h1>
+{% for order in orders %}
+  <section class="order">
+    <header>
+      <strong>Order #{{ order.pk }}</strong>
+      <span class="muted">{{ order.created_at|date:"M d, Y H:i" }}</span>
+      <span class="status {{ order.status }}">{{ order.get_status_display }}</span>
+    </header>
+    <ul>
+      {% for item in order.items.all %}
+        <li><span>{{ item.quantity }} &times; {{ item.product_name }}</span><span>${{ item.subtotal }}</span></li>
+      {% endfor %}
+    </ul>
+    <p class="total">Total: <strong>${{ order.total }}</strong></p>
+    <p class="muted small">Ship to: {{ order.full_name }}, {{ order.address }}, {{ order.city }} {{ order.postal_code }}</p>
+  </section>
+{% empty %}
+  <p class="empty">You haven't placed any orders yet. <a href="{% url 'home' %}">Browse products</a></p>
+{% endfor %}
+{% endblock %}

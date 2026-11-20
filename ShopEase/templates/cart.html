@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Your Cart - ShopEase{% endblock %}
+
+{% block content %}
+<h1>Your Cart</h1>
+{% if items %}
+<table class="table">
+  <thead><tr><th>Product</th><th>Price</th><th>Quantity</th><th>Subtotal</th><th></th></tr></thead>
+  <tbody>
+  {% for item in items %}
+    <tr>
+      <td><a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a></td>
+      <td>${{ item.product.price }}</td>
+      <td>
+        <form action="{% url 'update_cart' item.product.pk %}" method="post" class="row">
+          {% csrf_token %}
+          <input type="number" name="quantity" value="{{ item.quantity }}" min="0" max="{{ item.product.stock }}">
+          <button class="btn small-btn" type="submit">Update</button>
+        </form>
+      </td>
+      <td>${{ item.subtotal }}</td>
+      <td>
+        <form action="{% url 'remove_from_cart' item.product.pk %}" method="post">
+          {% csrf_token %}
+          <button class="btn danger small-btn" type="submit">Remove</button>
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+  <tfoot><tr><td colspan="3" class="right"><strong>Total</strong></td><td colspan="2"><strong>${{ total }}</strong></td></tr></tfoot>
+</table>
+<div class="actions">
+  <a class="btn secondary" href="{% url 'home' %}">Continue shopping</a>
+  <a class="btn" href="{% url 'checkout' %}">Proceed to checkout</a>
+</div>
+{% else %}
+<p class="empty">Your cart is empty. <a href="{% url 'home' %}">Start shopping</a></p>
+{% endif %}
+{% endblock %}
