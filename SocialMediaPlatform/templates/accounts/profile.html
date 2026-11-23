@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}@{{ owner.username }} - Friendzy{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/profile.css' %}">{% endblock %}
+
+{% block content %}
+<div class="narrow">
+  <section class="profile-card">
+    {% include 'includes/avatar.html' with u=owner size='lg' %}
+    <div class="profile-info">
+      <h1>@{{ owner.username }}</h1>
+      <p class="bio">{{ owner.profile.bio|default:"No bio yet." }}</p>
+      <ul class="stats">
+        <li><strong>{{ page.paginator.count }}</strong> posts</li>
+        <li><strong id="followers-count">{{ followers_count }}</strong> followers</li>
+        <li><strong>{{ following_count }}</strong> following</li>
+      </ul>
+    </div>
+    {% if not is_own %}
+      <form class="follow-form" action="{% url 'follow_toggle' owner.username %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn follow-btn {% if is_following %}secondary{% endif %}">{% if is_following %}Unfollow{% else %}Follow{% endif %}</button>
+      </form>
+    {% endif %}
+  </section>
+
+  {% if is_own %}
+  <details class="panel edit-profile">
+    <summary>Edit profile</summary>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn" type="submit">Save changes</button>
+    </form>
+  </details>
+  {% endif %}
+
+  <h2>Posts</h2>
+  {% for post in page %}
+    {% include 'includes/post_card.html' %}
+  {% empty %}
+    <p class="empty">{% if is_own %}You haven't posted anything yet. <a href="{% url 'create_post' %}">Create your first post</a>.{% else %}@{{ owner.username }} hasn't posted yet.{% endif %}</p>
+  {% endfor %}
+
+  {% include 'includes/pagination.html' %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/interactions.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Login - Friendzy{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/auth.css' %}">{% endblock %}
+
+{% block content %}
+<div class="auth-box">
+  <img src="{% static 'images/logo.png' %}" alt="" width="64" height="64">
+  <h1>Welcome back</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="next" value="{{ next }}">
+    <button class="btn block" type="submit">Login</button>
+  </form>
+  <p class="muted">New here? <a href="{% url 'register' %}">Create an account</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+.profile-card { display: flex; gap: 1.5rem; align-items: center; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 16px; box-shadow: var(--shadow); }
+.profile-info { flex: 1; }
+.profile-info h1 { margin: 0; font-size: 1.5rem; letter-spacing: -.03em; }
+.bio { margin: .25rem 0 .75rem; color: var(--muted); }
+.stats { display: flex; gap: 1.25rem; list-style: none; padding: 0; margin: 0; }
+.stats li { color: var(--muted); }
+.stats strong { color: var(--text); }
+.edit-profile summary { cursor: pointer; font-weight: 600; color: var(--primary); }
+.edit-profile form { margin-top: 1rem; }
+.edit-profile p { display: flex; flex-direction: column; gap: .25rem; }
+
+@media (max-width: 560px) {
+  .profile-card { flex-direction: column; text-align: center; }
+  .stats { justify-content: center; }
+}

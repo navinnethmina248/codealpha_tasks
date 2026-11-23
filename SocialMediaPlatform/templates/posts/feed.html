@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Feed - Friendzy{% endblock %}
+
+{% block content %}
+<div class="layout">
+  <section class="feed-main">
+    <div class="feed-heading">
+      <h1>Home</h1>
+    </div>
+    <div class="tabs">
+      <a class="tab {% if tab == 'following' %}active{% endif %}" href="?tab=following" {% if tab == 'following' %}aria-current="page"{% endif %}>Following</a>
+      <a class="tab {% if tab == 'all' %}active{% endif %}" href="?tab=all" {% if tab == 'all' %}aria-current="page"{% endif %}>For you</a>
+    </div>
+
+    <a class="composer-link" href="{% url 'create_post' %}">
+      {% include 'includes/avatar.html' with u=user size='sm' %}
+      <span class="composer-copy">What's happening?</span>
+    </a>
+
+    {% for post in page %}
+      {% include 'includes/post_card.html' %}
+    {% empty %}
+      <p class="empty">
+        {% if tab == 'following' %}
+          Nothing here yet. Follow some people or check the <a href="?tab=all">Everyone</a> tab.
+        {% else %}
+          No posts yet. <a href="{% url 'create_post' %}">Write the first one!</a>
+        {% endif %}
+      </p>
+    {% endfor %}
+
+    {% include 'includes/pagination.html' %}
+  </section>
+
+  <aside class="sidebar">
+    <div class="panel">
+      <h3>People to follow</h3>
+      {% for s in suggestions %}
+        <div class="suggestion">
+          <a href="{% url 'profile' s.username %}" class="author">
+            {% include 'includes/avatar.html' with u=s size='sm' %}
+            <span>@{{ s.username }}</span>
+          </a>
+          <form class="follow-form" action="{% url 'follow_toggle' s.username %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+            <button type="submit" class="btn small-btn follow-btn">Follow</button>
+          </form>
+        </div>
+      {% empty %}
+        <p class="muted small">No suggestions right now.</p>
+      {% endfor %}
+    </div>
+  </aside>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% load static %}
+<script src="{% static 'js/interactions.js' %}"></script>
+{% endblock %}

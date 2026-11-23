@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Post by @{{ post.author.username }} - Friendzy{% endblock %}
+
+{% block content %}
+<div class="narrow">
+  <a href="{% url 'feed' %}" class="back">&larr; Back home</a>
+  {% include 'includes/post_card.html' %}
+
+  <section class="panel">
+    <h3>Comments ({{ comments|length }})</h3>
+    <form method="post" class="comment-form">
+      {% csrf_token %}
+      {{ form.content }}
+      <button class="btn" type="submit">Comment</button>
+    </form>
+    {{ form.content.errors }}
+
+    {% for c in comments %}
+      <div class="comment">
+        <a href="{% url 'profile' c.author.username %}">{% include 'includes/avatar.html' with u=c.author size='sm' %}</a>
+        <div>
+          <a href="{% url 'profile' c.author.username %}"><strong>@{{ c.author.username }}</strong></a>
+          <span class="muted small">{{ c.created_at|timesince }} ago</span>
+          <p>{{ c.content }}</p>
+        </div>
+      </div>
+    {% empty %}
+      <p class="muted">No comments yet. Be the first!</p>
+    {% endfor %}
+  </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/interactions.js' %}"></script>
+{% endblock %}

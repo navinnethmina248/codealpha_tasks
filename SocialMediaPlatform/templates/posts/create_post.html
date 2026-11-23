@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}New post - Friendzy{% endblock %}
+
+{% block content %}
+<div class="panel narrow">
+  <h1>Create a post</h1>
+  <p class="muted">Share an update with your community.</p>
+  <form method="post" enctype="multipart/form-data" id="post-form">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="field">
+      {{ form.content }}
+      <div class="counter muted small"><span id="char-count">0</span> / 500</div>
+      {{ form.content.errors }}
+    </div>
+    <div class="field">
+      <label for="{{ form.image.id_for_label }}">Photo (optional)</label>
+      {{ form.image }}
+      {{ form.image.errors }}
+      <img id="image-preview" class="post-img" alt="" hidden>
+    </div>
+    <div class="actions">
+      <a class="btn secondary" href="{% url 'feed' %}">Cancel</a>
+      <button class="btn" type="submit">Post</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/posts.js' %}"></script>
+{% endblock %}
