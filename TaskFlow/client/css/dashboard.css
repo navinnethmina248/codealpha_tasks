@@ -1,0 +1,21 @@
+/* Dashboard */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.stat { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; }
+.stat span { display: block; font-size: 2rem; font-weight: 800; color: var(--primary); line-height: 1.1; }
+.stat label { margin: 0; color: var(--muted); font-weight: 500; }
+
+.project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+.project-card { display: flex; flex-direction: column; gap: .5rem; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; color: var(--text); transition: transform .15s, box-shadow .15s; }
+.project-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,.08); text-decoration: none; }
+.project-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; }
+.project-card h3 { margin: 0; }
+.project-card p { margin: 0; flex: 1; min-height: 2.8rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.progress { height: 8px; background: #e5e7eb; border-radius: 999px; overflow: hidden; }
+.progress-bar { height: 100%; background: linear-gradient(90deg, #4f46e5, #7c3aed); }
+.project-meta { display: flex; justify-content: space-between; font-size: .85rem; color: var(--muted); }
+.avatars { display: flex; }
+.avatars .avatar { margin-right: -8px; }
+
+/* Profile page */
+.profile-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.profile-head h1 { margin: 0; }

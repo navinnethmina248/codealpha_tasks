@@ -1,0 +1,19 @@
+@media (max-width: 980px) {
+  .project-layout { grid-template-columns: 1fr; }
+  .side-panel { order: -1; }
+}
+
+@media (max-width: 760px) {
+  .board { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; }
+  .nav-user { display: none; }
+  .nav-links { gap: .6rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .notif-panel { position: fixed; left: .75rem; right: .75rem; top: 3.6rem; width: auto; }
+}
+
+@media (max-width: 480px) {
+  .hero { padding: 3rem 0; }
+  .auth-box { padding: 1.5rem; }
+  .brand { font-size: 1.05rem; }
+}

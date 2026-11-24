@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register - TaskFlow</title>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="register" class="auth-page">
+  <div class="auth-box">
+    <a class="brand" href="index.html"><img src="assets/icons/favicon.svg" alt="" width="32" height="32"> TaskFlow</a>
+    <h1>Create your account</h1>
+    <p class="muted">Start organising your team's work in minutes.</p>
+
+    <form id="registerForm" novalidate>
+      <div class="form-error" hidden></div>
+      <label>Full name
+        <input type="text" name="name" placeholder="Jane Doe" required autocomplete="name">
+      </label>
+      <label>Email
+        <input type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+      </label>
+      <label>Password
+        <input type="password" name="password" placeholder="At least 6 characters" minlength="6" required autocomplete="new-password">
+      </label>
+      <label>Confirm password
+        <input type="password" name="confirmPassword" placeholder="Repeat password" required autocomplete="new-password">
+      </label>
+      <button class="btn btn-block" type="submit">Create account</button>
+    </form>
+
+    <p class="muted center">Already registered? <a href="login.html">Login</a></p>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

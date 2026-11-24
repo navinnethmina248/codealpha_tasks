@@ -1,0 +1,6 @@
+.auth-page { align-items: center; justify-content: center; background: linear-gradient(135deg, #eef2ff, #f5f3ff); padding: 1.5rem; }
+.auth-box { width: min(420px, 100%); background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 2rem; box-shadow: 0 18px 45px rgba(79, 70, 229, .12); }
+.auth-box .brand { margin-bottom: 1rem; }
+.auth-box h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+.auth-box > .muted { margin-top: 0; margin-bottom: 1.25rem; }
+.auth-box form { margin-bottom: 1rem; }
